@@ -13,6 +13,15 @@ public class ItemBean {
     private Timestamp updated;
     private Timestamp created;
     private Map<String, String> validation;
+    private Integer quantity;
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
 
     public ItemBean() {
     }
