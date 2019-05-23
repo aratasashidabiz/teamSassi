@@ -1,0 +1,8 @@
+-- USE mbshop;
+--
+-- DROP TABLE IF EXISTS ordered_detail;
+-- CREATE TABLE ordered_detail (
+--     ordered_detail_id SERIAL PRIMARY KEY,
+--     ordered_id INT NOT,
+--
+-- );
