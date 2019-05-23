@@ -47,12 +47,18 @@
                     解説
                     <p>{少年時代に奇跡が起こって以来、喋るテディベアと無二の親友として。。。}</p>
                 </li>
-
+                <li>
+                    <form action="/mbshop/CartController?mode=1&id=商品ID" method="post">
+                        <input type="submit" value="カートに入れる">
+                    </form>
+                </li>
             </ul>
         </td>
 
     </tr>
 </table>
+
+<a href="/mbshop/ItemController"><< 戻る</a>
 
 
 </body>
