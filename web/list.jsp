@@ -20,7 +20,7 @@
     <%--検索ボタンとフォーム--%>
     <form action="/mbshop/ItemsController" method="get">
         <input type="text" name="keyword">
-        <button name="search_button" value="検索">検索</button>
+        <input type="button" name="searchKeyword" value="検索">
     </form>
 </div>
 
@@ -32,7 +32,7 @@
 <%--商品一覧部分--%>
 <div>
     <form action="/mbshop/CartController?mode=1&id=商品ID" method="get">
-        <table>
+        <table border="1" cellspacing="10">
             <%--    <c:forEach items="${items.itemList}" var="item">--%>
             <% for (int i = 1; i < 4; i++) { %>
             <tr>
@@ -46,7 +46,6 @@
                     {items.price}
                 </td>
             </tr>
-            <br>
             <% } %>
             <%--    </c:forEach>--%>
         </table>
