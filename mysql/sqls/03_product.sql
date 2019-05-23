@@ -8,6 +8,6 @@ CREATE TABLE product (
     cast_name_list VARCHAR(255),
     director_name VARCHAR(255),
     description TEXT,
-    updated_date DATE,
-    created_date DATE
+    updated_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    created_date DATETIME DEFAULT CURRENT_TIMESTAMP
 );
