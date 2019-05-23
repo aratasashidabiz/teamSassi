@@ -2,7 +2,7 @@ USE mbshop;
 
 DROP TABLE IF EXISTS product;
 CREATE TABLE product (
-    product_id SERIAL PRIMARY KEY,
+    product_id INT PRIMARY KEY AUTO_INCREMENT,
     product_title VARCHAR(255) NOT NULL,
     product_price INT NOT NULL CHECK (product_id > 0),
     cast_name_list VARCHAR(255),
