@@ -16,34 +16,42 @@
 <h1>エム・ビーショップ</h1>
 <h2>商品一覧</h2>
 
-<%--検索ボタンとフォーム--%>
-<form action="/mbshop/ItemsController" method="get">
-    <input type="text" name="keyword">
-    <button name="search_button" value="検索">検索</button>
-</form>
+<div>
+    <%--検索ボタンとフォーム--%>
+    <form action="/mbshop/ItemsController" method="get">
+        <input type="text" name="keyword">
+        <button name="search_button" value="検索">検索</button>
+    </form>
+</div>
 
-<%--ページナビゲーション--%>
-<cetner><< 1,2,3,4,5 >></cetner>
+<div>
+    <%--ページナビゲーション--%>
+    <cetner><< 1,2,3,4,5 >></cetner>
+</div>
 
 <%--商品一覧部分--%>
-<form action="/mbshop/CartController?mode=1&id=商品ID" method="get">
-<% for(int i=1;i<11;i++){ %>
-    <table>
-        <tr></tr>
-        <tr>
-            <td>
-                <img src="./img/dummy.png" alt="dummy"><br>
-                <button type="button" name="inItems" value="inItems">カートに入れる</button><br>
-            </td>
-            <td>
-                <a href="/mbshop/ItemsController?mode=1&id=商品ID">タイトル<%=i%></a><br>
-                価格:<br>
-                items.price
-            </td>
-        </tr>
-        <br>
-<% } %>
-</form>
+<div>
+    <form action="/mbshop/CartController?mode=1&id=商品ID" method="get">
+        <table>
+            <%--    <c:forEach items="${items.itemList}" var="item">--%>
+            <% for (int i = 1; i < 4; i++) { %>
+            <tr>
+                <td>
+                    <img src="./img/dummy.png" alt="dummy"><br>
+                    <input type="button" onclick="/mbshop/CartController?mode=1&id=商品ID" value="カートに入れる">
+                </td>
+                <td>
+                    <a href="/mbshop/ItemsController?mode=1&id=商品ID">{items.title}</a><br>
+                    価格:<br>
+                    {items.price}
+                </td>
+            </tr>
+            <br>
+            <% } %>
+            <%--    </c:forEach>--%>
+        </table>
+    </form>
+</div>
 
 </body>
 </html>
