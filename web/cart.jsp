@@ -19,25 +19,31 @@
     <h2>カート</h2>
     <table border="1">
         <tr>
-            <th>タイトル</th>
-            <th>価格</th>
-            <th>数量</th>
-            <th>計</th>
-            <th>削除</th>
+            <th align="center">タイトル</th>
+            <th align="center">価格</th>
+            <th align="center">数量</th>
+            <th align="center">計</th>
+            <th align="center">削除</th>
         </tr>
         <%--    <c:forEach items="${cart.cartList}" var="item">--%>
         <tr>
-            <td>{テッド}</td>
-            <td>{1429円}</td>
+            <td align="center" width="150">{テッド}</td>
+            <td align="center" width="150">{1429円}</td>
             <form action="/mbshop/CartController?mode=2" method="post">
-                <td>
-                    <input type="hidden" name="id">
-                    <input type="text" name="quantity">
-                    <button type="button" name="update" value="update">更新</button>
+                <td align="center" width="150">
+                    <input type="hidden" name="id" value="${item.id}">
+                    <select name="quantity" id="quantity">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>個
+                    <input type="button" name="update" value="更新">
                 </td>
             </form>
-            <td>{1429円}</td>
-            <td>
+            <td align="center" width="150">{1429円}</td>
+            <td align="center" width="150">
                 <input type="button" onclick="/mbshop/CartController?mode=3&id=商品ID" value="削除">
             </td>
         </tr>
