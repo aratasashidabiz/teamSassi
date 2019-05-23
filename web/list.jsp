@@ -28,12 +28,20 @@
 <%--商品一覧部分--%>
 <form action="/mbshop/CartController?mode=1&id=商品ID" method="get">
 <% for(int i=1;i<11;i++){ %>
-<br>
-<a href="/mbshop/ItemsController?mode=1&id=商品ID">タイトル<%=i%></a> <br>
-価格:items.price <br>
-画像:/img/items/商品ID.jpg <br>
-<button type="button" name="inItems" value="inItems">カートに入れる</button>
-<br>
+    <table>
+        <tr></tr>
+        <tr>
+            <td>
+                <img src="./img/dummy.png" alt="dummy"><br>
+                <button type="button" name="inItems" value="inItems">カートに入れる</button><br>
+            </td>
+            <td>
+                <a href="/mbshop/ItemsController?mode=1&id=商品ID">タイトル<%=i%></a><br>
+                価格:<br>
+                items.price
+            </td>
+        </tr>
+        <br>
 <% } %>
 </form>
 
