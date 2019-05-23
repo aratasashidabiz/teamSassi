@@ -1,1 +1,2 @@
 # teamSassi
+DVDのECサイトを作ります
