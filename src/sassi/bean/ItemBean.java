@@ -14,7 +14,8 @@ public class ItemBean {
     private Timestamp created;
     private Map<String, String> validation;
 
-    public ItemBean() {
+    public ItemBean(Integer id) {
+        this.id = id;
     }
 
     public ItemBean(HttpServletRequest req){
