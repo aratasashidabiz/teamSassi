@@ -1,5 +1,6 @@
 package sassi.bean;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,4 +41,43 @@ public class CartBean {
     public void setTotalPrice(Integer totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+    public void addItem(Integer itemId, Integer quantity){
+        ItemBean itemBean = (ItemBean) items.get(itemId); // ここが不安
+
+        if (itemBean == null) {
+            itemBean.setQuantity(quantity);
+            items.put(itemBean.getId(), itemBean);
+        } else {
+            itemBean.setQuantity(quantity + itemBean.getQuantity());
+        }
+        recalcTotal();
+        cartNum += quantity;
+    }
+
+    public void changeQuantity(Integer itemId, Integer quantity){
+
+        ItemBean itemBean = items.get(itemId);
+        if (itemBean != null) {
+            itemBean.setQuantity(quantity);
+        }else{
+            // TODO: ここでエラー処理したい
+        }
+
+    }
+
+    public void deleteCart(Integer itemId){
+        items.remove(itemId);
+        recalcTotal();
+    }
+
+    private void recalcTotal() {
+        totalPrice = 0;
+        Collection<ItemBean> list = items.values();
+        for (ItemBean item : list) {
+            totalPrice += item.getPrice() * item.getQuantity();
+        }
+    }
+
+
 }
