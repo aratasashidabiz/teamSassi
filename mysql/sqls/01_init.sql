@@ -1,6 +1,6 @@
-drop database if exists mbshop;
-drop user if exists mbshop;
-create user mbshop;
-set password for mbshop = 'himitu';
-create database mbshop;
-grant all on mbshop.* to mbshop;
+DROP DATABASE IF EXISTS mbshop;
+DROP USER IF EXISTS mbshop;
+CREATE USER mbshop;
+SET PASSWORD FOR mbshop = 'himitu';
+CREATE DATABASE mbshop;
+GRANT ALL ON mbshop.* TO mbshop;
