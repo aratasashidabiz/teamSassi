@@ -2,7 +2,7 @@ USE mbshop;
 
 DROP TABLE IF EXISTS ordered;
 CREATE TABLE ordered (
-    order_id SERIAL PRIMARY KEY,
+    ordered_id SERIAL PRIMARY KEY,
     user_name VARCHAR(255) NOT NULL,
     zip_code CHAR(8) NOT NULL,
     address VARCHAR(255) NOT NULL,
