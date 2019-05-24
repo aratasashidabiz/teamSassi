@@ -26,7 +26,11 @@
 
 <div>
     <%--ページナビゲーション--%>
-    <cetner><< 1,2,3,4,5 >></cetner>
+<%--        <a href="/ItemsServlet?page=${p-1}"><< </a>--%>
+    <c:forEach items="${pages}" var="page">
+        <a href="/ItemsServlet?page=${page}"> ${page} </a>
+    </c:forEach>
+<%--        <a href="/ItemsServlet?page=${p+1}"> >></a>--%>
 </div>
 
 <%--商品一覧部分--%>
@@ -36,7 +40,7 @@
                 <c:forEach items="${items}" var="item">
             <tr>
                 <td>
-                    <img src="./img/dummy.png" alt="dummy"><br>
+                    <img src="./img/product_${item.id}.png" alt="dummy"><br>
                     <input type="button" onclick="/CartServlet?mode=1&id=${item.id}" value="カートに入れる">
                 </td>
                 <td>

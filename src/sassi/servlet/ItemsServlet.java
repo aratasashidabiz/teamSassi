@@ -10,13 +10,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/ItemsServlet")
 public class ItemsServlet extends HttpServlet {
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // 商品検索
@@ -38,16 +38,23 @@ public class ItemsServlet extends HttpServlet {
 
         String keyword = request.getParameter("keyword");
         String page = request.getParameter("page");
-        if(keyword == null) keyword = "";
-        if(page == null) page = "";
+        if (keyword == null) keyword = "";
+        if (page == null) page = "";
+        int pageLimitCount = 3;
         ItemBean item = new ItemBean();
 
         try {
             ItemDAO ItemDao = new ItemDAO();
+            Integer listCount = ItemDao.getListCount() / pageLimitCount;
+            ArrayList<String> listCountArray = new ArrayList<>();
+            for (int i = 1; i <= listCount; i++) {
+                listCountArray.add(String.valueOf(i));
+            }
+            request.setAttribute("pages", listCountArray);
             if (page.length() != 0) {
                 // TODO
-                System.out.println("ここ一旦放置!!!ページネーション+keyword!!!");
-                //request.setAttribute("item",ItemDao.getListByKeywordAndPage(keyword,page));
+                String getPageNum = request.getParameter("page");
+                request.setAttribute("items",ItemDao.getListByPage(Integer.parseInt(getPageNum), pageLimitCount));
             } else if (keyword.length() != 0) {
                 request.setAttribute("items", ItemDao.getListByKeyword(keyword));
             } else if (keyword.length() == 0) {

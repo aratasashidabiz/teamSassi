@@ -22,7 +22,7 @@
     </tr>
     <tr>
         <td>
-            <img src="img/dummy.png">
+            <img src="img/product_${item.id}.png">
         </td>
         <td>
             <ul style="list-style: none;">
