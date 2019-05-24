@@ -50,7 +50,7 @@
                 <c:forEach items="${items}" var="item">
                     <tr>
                         <td>
-                            <img src="./img/dummy.png" alt="dummy"><br>
+                            <img src="./img/product_${item.id}.png" alt="dummy" width="400" height="400"><br>
 <%--                            <input type="button" onclick="/CartServlet?mode=1&id=${item.id}" class="btn btn-info" value="カートに入れる">--%>
                             <form action="/CartServlet" method="post">
                                 <input type="hidden" name="id" value="${item.id}">

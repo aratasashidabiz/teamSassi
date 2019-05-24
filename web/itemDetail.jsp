@@ -27,7 +27,7 @@
     </tr>
     <tr>
         <td>
-            <img src="img/dummy.png">
+            <img src="img/product_${item.id}.png" width="400" height="400">
         </td>
         <td>
             <ul style="list-style: none;">
