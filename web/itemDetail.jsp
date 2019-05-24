@@ -11,10 +11,15 @@
 <html>
 <head>
     <title>ItemDetail</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<h1>{エム・ビーショップ}</h1>
+<h1 style="font-family: 'Lobster', cursive;">MB SHOP</h1>
 
 <table>
     <tr>
@@ -47,7 +52,9 @@
                     <p>${item.description}</p>
                 </li>
                 <li>
-                    <form action="/CartServlet?mode=1&id=${item.id}" method="post">
+                    <form action="/CartServlet" method="post">
+                        <input type="hidden" name="id" value="${item.id}">
+                        <input type="hidden" name="mode" value="1">
                         <input type="submit" value="カートに入れる">
                     </form>
                 </li>

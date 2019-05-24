@@ -27,17 +27,17 @@
         <td align="center">計</td>
     </tr>
 
-<%--    <c:forEach items="${cart.cartList}" var="item">--%>
+    <c:forEach items="${requestScope.cart.items}" var="item">
         <tr>
-            <td align="center">{テッド}</td>
-            <td align="center">{1,429}円</td>
-            <td align="center">{1}</td>
-            <td align="center">{1,429}円</td>
+            <td align="center">${item.getValue().title}</td>
+            <td align="center">${item.getValue().price}円</td>
+            <td align="center">${item.getValue().quantity}</td>
+            <td align="center">${item.getValue().totalPrice}円</td>
         </tr>
-<%--    </c:forEach>--%>
+    </c:forEach>
     <tr>
         <td align="center" colspan="3">合計</td>
-        <td align="center">{1,429}円</td>
+        <td align="center">${item.getValue().totalPrice}円</td>
     </tr>
 </table>
 </div>
@@ -47,19 +47,19 @@
 <ul style="list-style: none;">
     <li>
         名前
-        <p>{山田太郎}</p>
+        <p>${requestScope.customer.name}</p>
     </li>
     <li>
         郵便番号
-        <p>{111-2222}</p>
+        <p>${requestScope.customer.postal}</p>
     </li>
     <li>
         住所
-        <p>{東京都豊島区東池袋2-34-5}</p>
+        <p>${requestScope.customer.address}</p>
     </li>
     <li>
         電話番号
-        <p>{03-1111-2222}</p>
+        <p>${requestScope.customer.phone}</p>
     </li>
 </ul>
 

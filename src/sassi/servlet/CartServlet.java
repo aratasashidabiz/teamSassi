@@ -20,6 +20,8 @@ public class CartServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+
         String mode = req.getParameter("mode");
 
         if (mode.equals("1")) { // カートに追加
@@ -105,7 +107,14 @@ public class CartServlet extends HttpServlet {
     }
 
     private void gotoPage(HttpServletRequest req, HttpServletResponse resp, String toPage) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         RequestDispatcher rd = req.getRequestDispatcher(toPage);
         rd.forward(req, resp);
+    }
+}
+
+class Tester{
+    public static void main(String[] args) {
+
     }
 }

@@ -7,16 +7,26 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
 
 <html>
 <head>
     <title>カート画面</title>
 </head>
 <body>
-<h1>エム・ビーショップ</h1>
+<h1 style="font-family: 'Lobster', cursive;">MB SHOP</h1>
 
 <div>
     <h2>カート</h2>
+    <c:if test="${empty sessionScope.cart.items}">
+        現在、カートは空です。
+    </c:if>
+
+    <c:if test="${not empty sessionScope.cart.items}">
     <table border="1">
         <tr>
             <th align="center">タイトル</th>
@@ -25,44 +35,54 @@
             <th align="center">計</th>
             <th align="center">削除</th>
         </tr>
-        <%--    <c:forEach items="${cart.cartList}" var="item">--%>
+
+
+        <c:forEach items="${sessionScope.cart.items}" var="item">
         <tr>
-            <td align="center" width="150">{テッド}</td>
-            <td align="center" width="150">{1429円}</td>
-            <form action="/CartServlet?mode=2" method="post">
+            <td align="center" width="150">${item.getValue().title}</td>
+            <td align="center" width="150">${item.getValue().price}</td>
+            <form action="CartServlet" method="post">
                 <td align="center" width="150">
-                    <input type="hidden" name="id" value="${item.id}">
-                    <select name="quantity" id="quantity">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>個
-                    <input type="button" name="update" value="更新">
+                    <input type="hidden" name="mode" value="2">
+                    <input type="hidden" name="id" value="${item.getValue().id}">
+                    <input type="number" name="quantity" value="${item.getValue().quantity}">
+                    <span>個</span>
+                    <input type="submit" name="update" value="更新">
                 </td>
             </form>
-            <td align="center" width="150">{1429円}</td>
+            <td align="center" width="150">${item.getValue().totalPrice}</td>
             <td align="center" width="150">
-                <input type="button" onclick="/CartServlet?mode=3&id=商品ID" value="削除">
+                <form action="CartServlet" method="post">
+                    <input type="hidden" name="mode" value="3">
+                    <input type="hidden" name="id" value="${item.getValue().id}">
+
+                    <input type="submit" value="削除">
+                </form>
             </td>
         </tr>
-        <%--    </c:forEach>--%>
+        </c:forEach>
         <tr>
             <td align="center" colspan="3">合計</td>
-            <td align="center" colspan="1">{1,429円}</td>
+            <td align="center" colspan="1">${sessionScope.cart.totalPrice}</td>
             <td align="center" colspan="1"></td>
         </tr>
+
+        </c:if>
+
     </table>
 </div>
 
 <br>
 
 <div>
-    <input type="button" onclick="/ItemsServlet" value="買い物を続ける">
+    <form action="ItemsServlet" method="post">
+        <input type="submit" value="買い物を続ける">
+    </form>
+<%--    <input type="button" onclick="ItemsServlet" value="買い物を続ける">--%>
 </div>
 
 <br>
+<c:if test="${not empty sessionScope.cart.items}">
 
 <div style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333;">
     <h2>お届け先</h2>
@@ -88,6 +108,7 @@
         <input type="submit" value="注文する">
     </form>
 </div>
+</c:if>
 
 </body>
 </html>
