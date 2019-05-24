@@ -45,21 +45,21 @@
         <form action="/CartServlet?mode=1&id=${item.id}" method="get">
             <table border="1" cellspacing="10">
                 <c:forEach items="${items}" var="item">
-            <tr>
-                <td>
-                    <img src="./img/product_${item.id}.png" alt="dummy"><br>
-                    <form action="/CartServlet" method="post">
-                        <input type="hidden" name="id" value="${item.id}">
-                        <input type="hidden" name="mode" value="1">
-                        <input type="submit" value="カートにいれる">
-                    </form>
-                </td>
-                <td>
-                    <a href="/ItemsServlet?mode=1&id=${item.id}">${item.title}</a><br>
-                    価格:<br>
-                    ${item.price}
-                </td>
-            </tr>
+                    <tr>
+                        <td>
+                            <img src="./img/product_${item.id}.png" alt="dummy" width="400" height="400"><br>
+                            <form action="/CartServlet" method="post">
+                                <input type="hidden" name="id" value="${item.id}">
+                                <input type="hidden" name="mode" value="1">
+                                <input type="submit" value="カートに入れる">
+                            </form>
+                        </td>
+                        <td>
+                            <a href="/ItemsServlet?mode=1&id=${item.id}">${item.title}</a><br>
+                            価格:<br>
+                                ${item.price}
+                        </td>
+                    </tr>
                 </c:forEach>
             </table>
         </form>
