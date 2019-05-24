@@ -1,5 +1,6 @@
 package sassi.servlet;
 
+import sassi.bean.ItemBean;
 import sassi.dao.DAOException;
 
 import javax.servlet.RequestDispatcher;
@@ -14,6 +15,18 @@ import java.util.List;
 
 @WebServlet("/mbshop/ItemsServlet")
 public class ItemsServlet extends HttpServlet {
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // 商品検索
+        String mode = request.getParameter("mode");
+
+        if(mode.equals("1")){
+            showDetail(request,response);
+        }else{
+            searchKeyword(request,response);
+        }
+    }
 
     protected void searchKeyword(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
@@ -44,22 +57,10 @@ public class ItemsServlet extends HttpServlet {
     protected void showDetail(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
 
-        List<String> ItemList = new ArrayList<>();
+        ItemBean item = new ItemBean();
         String id = request.getParameter("id");
-        ItemList = ItemDao.getList(id);
+        item = ItemDao.getList(id);
         gotoPage(request,response,"/detail.jsp");
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // 商品検索
-        String mode = request.getParameter("mode");
-
-        if(mode.equals("1")){
-            showDetail(request,response);
-        }else{
-            searchKeyword(request,response);
-        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
