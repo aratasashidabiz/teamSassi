@@ -22,9 +22,13 @@ public class ItemsServlet extends HttpServlet {
         // 商品検索
         String mode = request.getParameter("mode");
 
-        if(mode.equals("1")){
-            showDetail(request,response);
-        }else{
+        try{
+            if(mode.equals("1")){
+                showDetail(request,response);
+            }else{
+                searchKeyword(request,response);
+            }
+        }catch (NullPointerException e){
             searchKeyword(request,response);
         }
     }
