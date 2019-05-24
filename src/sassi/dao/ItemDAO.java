@@ -39,6 +39,32 @@ public class ItemDAO {
         }
     }
 
+    public List<ItemBean> getListByKeyword(String targetStr) throws DAOException {
+        if (connection == null) {
+            getConnection();
+        }
+
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+            String sql = "select * from product where product_title like '%" + targetStr + "%'";
+            st = connection.prepareStatement(sql);
+            rs = st.executeQuery();
+            return itemAddLoop(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DAOException("レコードを取得できませんでした。");
+        } finally {
+            try {
+                close(st, rs);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new DAOException("リソースを解放できませんでした。");
+            }
+        }
+    }
+
     public List<ItemBean> getListByPage(int pageNum,int getCountNum) throws DAOException{
         if (connection == null) {
             getConnection();
@@ -55,8 +81,8 @@ public class ItemDAO {
             rs = st.executeQuery();
             return itemAddLoop(rs);
         } catch (SQLException e) {
-            e.printStackTrace();\
-            throw new DAOException("リソースを解放できませんでした。");
+            e.printStackTrace();
+            throw new DAOException("レコードを取得できませんでした。");
         } finally {
             try {
                 close(st, rs);
@@ -85,7 +111,7 @@ public class ItemDAO {
             return bean;
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DAOException("リソースを解放できませんでした。");
+            throw new DAOException("レコードを取得できませんでした。");
         } finally {
             try {
                 close(st, rs);
@@ -111,7 +137,7 @@ public class ItemDAO {
             String url = "jdbc:mysql://localhost:33061/mbshop";
             String user = "mbshop";
             String pass = "himitu";
-            Connection connection = DriverManager.getConnection(url, user, pass);
+            connection = DriverManager.getConnection(url, user, pass);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             throw new DAOException("接続に失敗しました。");
@@ -138,7 +164,7 @@ public class ItemDAO {
                 throw new DAOException(msg);
             }
         } else {
-            throw new DAOException(msg);
+            throw new DAOException("リソースの解放ができませんでした");
         }
     }
 }
