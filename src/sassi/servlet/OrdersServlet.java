@@ -41,7 +41,7 @@ public class OrdersServlet extends HttpServlet {
                 e.printStackTrace();
             }
             request.setAttribute("order", order);
-            session.setAttribute("cart", null);
+            session.setAttribute("cart", cart);
             gotoPage(request, response, "/saved.jsp");
         }
     }

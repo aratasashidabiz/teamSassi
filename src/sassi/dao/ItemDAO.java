@@ -39,7 +39,7 @@ public class ItemDAO {
         }
     }
 
-    public List<ItemBean> getListBySearch(String targetStr) throws DAOException {
+    public List<ItemBean> getListByKeyword(String targetStr) throws DAOException {
         if (connection == null) {
             getConnection();
         }
