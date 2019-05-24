@@ -44,10 +44,10 @@ public class ItemsServlet extends HttpServlet {
                 //request.setAttribute("item",ItemDao.getListByKeywordAndPage(keyword,page));
             }
             else if(keyword.length() != 0 || keyword != null){
-                request.setAttribute("item",ItemDao.getListByKeyword(keyword));
+                request.setAttribute("items",ItemDao.getListByKeyword(keyword));
             }
             else if(keyword.length() == 0 || keyword == null){
-                request.setAttribute("item",ItemDao.getListAll());
+                request.setAttribute("items",ItemDao.getListAll());
             }
             gotoPage(request,response,"/list.jsp");
         }catch (DAOException e){
