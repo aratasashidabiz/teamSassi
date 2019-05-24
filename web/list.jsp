@@ -49,7 +49,10 @@
                     <tr>
                         <td>
                             <img src="./img/dummy.png" alt="dummy"><br>
-                            <input type="button" onclick="/CartServlet?mode=1&id=${item.id}" class="btn btn-info" value="カートに入れる">
+<%--                            <input type="button" onclick="/CartServlet?mode=1&id=${item.id}" class="btn btn-info" value="カートに入れる">--%>
+                            <form action="/CartServlet?mode=1&id=${item.id}" method="post">
+                                <input type="submit" value="カートに入れる">
+                            </form>
                         </td>
                         <td>
                             <a href="/ItemsServlet?mode=1&id=${item.id}">${item.title}</a><br>
