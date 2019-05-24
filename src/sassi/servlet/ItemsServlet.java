@@ -34,20 +34,21 @@ public class ItemsServlet extends HttpServlet {
 
         String keyword = request.getParameter("keyword");
         String page = request.getParameter("page");
-        List<String> ItemList = new ArrayList<>();
+        ItemBean item = new ItemBean();
 
         try{
             ItemDAO ItemDao = new ItemDAO();
             if(page.length() != 0 || page != null){
-                ItemList = ItemDao.getList(keyword,page);
+                // TODO
+                System.out.println("ここ一旦放置!!!ページネーション+keyword!!!");
+                //request.setAttribute("item",ItemDao.getListByKeywordAndPage(keyword,page));
             }
             else if(keyword.length() != 0 || keyword != null){
-                ItemList = ItemDao.getList(keyword);
+                request.setAttribute("item",ItemDao.getListByKeyword(keyword));
             }
             else if(keyword.length() == 0 || keyword == null){
-                ItemList = ItemDao.getList("");
+                request.setAttribute("item",ItemDao.getListByKeyword(""));
             }
-            request.setAttribute("ItemList",ItemList);
             gotoPage(request,response,"/list.jsp");
         }catch (DAOException e){
             e.printStackTrace();
