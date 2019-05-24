@@ -146,19 +146,19 @@ public class OrderDAO {
 }
 
 // test
-class TestOrderDAO {
-    public static void main(String[] args) throws DAOException {
-        OrderDAO dao = new OrderDAO();
-        Map itemMap = new HashMap<Integer, ItemBean>();
-        ItemBean item1 = new ItemBean(1, "インターステラー", 1200, "マシュー・マコノヒー", "クリストファーノーラン", "めっちゃいい", Timestamp.valueOf("2019-05-24 09:43:14"), Timestamp.valueOf("2019-05-24 09:43:14"));
-        ItemBean item2 = new ItemBean(2, "インターステラー2", 9999, "マシュー・マコノヒー2", "クリストファーノーラン2", "めっちゃいい2", Timestamp.valueOf("2019-05-24 09:43:14"), Timestamp.valueOf("2019-05-24 09:43:14"));
-        itemMap.put(1, item1);
-        itemMap.put(2, item2);
-        CartBean cart = new CartBean();
-        cart.setItems(itemMap);
-//        cart.setCartNum(1);
-//        cart.setTotalPrice(1000);
-        CustomerBean customer = new CustomerBean("first", "111-1111", "八王子市", "111-1111-1111");
-        dao.saveOrdered(customer, cart);
-    }
-}
+//class TestOrderDAO {
+//    public static void main(String[] args) throws DAOException {
+//        OrderDAO dao = new OrderDAO();
+//        Map itemMap = new HashMap<Integer, ItemBean>();
+//        ItemBean item1 = new ItemBean(1, "インターステラー", 1200, "マシュー・マコノヒー", "クリストファーノーラン", "めっちゃいい", Timestamp.valueOf("2019-05-24 09:43:14"), Timestamp.valueOf("2019-05-24 09:43:14"));
+//        ItemBean item2 = new ItemBean(2, "インターステラー2", 9999, "マシュー・マコノヒー2", "クリストファーノーラン2", "めっちゃいい2", Timestamp.valueOf("2019-05-24 09:43:14"), Timestamp.valueOf("2019-05-24 09:43:14"));
+//        itemMap.put(1, item1);
+//        itemMap.put(2, item2);
+//        CartBean cart = new CartBean();
+//        cart.setItems(itemMap);
+////        cart.setCartNum(1);
+////        cart.setTotalPrice(1000);
+//        CustomerBean customer = new CustomerBean("first", "111-1111", "八王子市", "111-1111-1111");
+//        dao.saveOrdered(customer, cart);
+//    }
+//}
