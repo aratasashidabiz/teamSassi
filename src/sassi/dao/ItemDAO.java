@@ -25,6 +25,7 @@ public class ItemDAO {
             String sql = "select * from product";
             st = connection.prepareStatement(sql);
             rs= st.executeQuery();
+            System.out.println(itemAddLoop(rs));
             return itemAddLoop(rs);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -52,16 +53,7 @@ public class ItemDAO {
             st = connection.prepareStatement(sql);
             st.setInt(1, id);
             rs = st.executeQuery();
-            ItemBean bean = new ItemBean(
-                    rs.getInt("product_id"),
-                    rs.getString("product_title"),
-                    rs.getInt("product_price"),
-                    rs.getString("cast_name_list"),
-                    rs.getString("director_name"),
-                    rs.getString("description"),
-                    rs.getTimestamp("updated_date"),
-                    rs.getTimestamp("created_date")
-            );
+            ItemBean bean = new ItemBean(rs);
             return bean;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -79,15 +71,7 @@ public class ItemDAO {
     private List<ItemBean> itemAddLoop(ResultSet rs) throws SQLException {
         ArrayList<ItemBean> itemsBean = new ArrayList<>();
         while (rs.next()) {
-            int id = rs.getInt("product_id");
-            String title = rs.getString("product_title");
-            int price = rs.getInt("product_price");
-            String players = rs.getString("cast_name_list");
-            String directors = rs.getString("director_name");
-            String description = rs.getString("description");
-            Timestamp updated = rs.getTimestamp("updated_date");
-            Timestamp created = rs.getTimestamp("created_date");
-            ItemBean itemBean = new ItemBean(id, title, price, players, directors, description, updated, created);
+            ItemBean itemBean = new ItemBean(rs);
             itemsBean.add(itemBean);
         }
         return itemsBean;
