@@ -39,7 +39,7 @@ public class ItemDAO {
         }
     }
 
-    public List<ItemBean> getListBySerch(String targetStr) throws DAOException {
+    public List<ItemBean> getListBySearch(String targetStr) throws DAOException {
         if (connection == null) {
             getConnection();
         }
@@ -48,9 +48,8 @@ public class ItemDAO {
         ResultSet rs = null;
 
         try {
-            String sql = "select * from product where product_title like %?%";
+            String sql = "select * from product where product_title like '%" + targetStr + "%'";
             st = connection.prepareStatement(sql);
-            st.setString(1, targetStr);
             rs = st.executeQuery();
             return itemAddLoop(rs);
         } catch (SQLException e) {
@@ -138,7 +137,7 @@ public class ItemDAO {
             String url = "jdbc:mysql://localhost:33061/mbshop";
             String user = "mbshop";
             String pass = "himitu";
-            Connection connection = DriverManager.getConnection(url, user, pass);
+            connection = DriverManager.getConnection(url, user, pass);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             throw new DAOException("接続に失敗しました。");
@@ -165,7 +164,7 @@ public class ItemDAO {
                 throw new DAOException(msg);
             }
         } else {
-            throw new DAOException(msg);
+            throw new DAOException("リソースの解放ができませんでした");
         }
     }
 }
