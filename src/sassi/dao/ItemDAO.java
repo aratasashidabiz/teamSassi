@@ -39,6 +39,34 @@ public class ItemDAO {
         }
     }
 
+    public List<ItemBean> getListByPage(int pageNum,int getCountNum) throws DAOException{
+        if (connection == null) {
+            getConnection();
+        }
+
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try{
+            String sql = "SELECT * FROM product WHERE product_id BETWEEN ? AND ? ORDER BY product_id;";
+            st = connection.prepareStatement(sql);
+            st.setInt(1, ((pageNum - 1) * getCountNum) + 1);
+            st.setInt(2, pageNum * getCountNum);
+            rs = st.executeQuery();
+            return itemAddLoop(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();\
+            throw new DAOException("リソースを解放できませんでした。");
+        } finally {
+            try {
+                close(st, rs);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new DAOException("リソースを解放できませんでした");
+            }
+        }
+    }
+
     public ItemBean getItem(int id) throws DAOException {
         if (connection == null) {
             getConnection();
