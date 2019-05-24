@@ -32,8 +32,9 @@ public class CartServlet extends HttpServlet {
             }
 
             // 前の実装では、一旦itemと取り出してるけど。。。この処理必要かな？？
-            // TODO: DAO待機　仮配置 ItemBean item = ItemDAO.findByPrimayKey(itemId);
-            cart.addItem(itemId, quantity);
+            // TODO: DAO待機　仮配置 ItemBean item = ItemDAO.getItem(itemId); try catchもやる
+            // if(item == null) throw new IllegalAccessError("存在しないitemにアクセスしています")
+            // cart.addItem(item, quantity);
 
             gotoPage(req, resp, "cart.jsp");
         }else if(mode.equals("2")){ // 数量の変更
@@ -51,7 +52,7 @@ public class CartServlet extends HttpServlet {
 
             CartBean cart = (CartBean) session.getAttribute("cart");
             if(cart == null) { // カートがない
-                req.setAttribute("message", "正しく操作してください。");
+                req.setAttribute("message", "カートが存在していません。");
                 gotoPage(req, resp, "/errInternal.jsp");
                 return;
             }
@@ -62,7 +63,6 @@ public class CartServlet extends HttpServlet {
 
         }else if (mode.equals("3")){ // 商品の削除
 
-            // TODO: セッションから、cart取得が重複しているので、関数化予定
             HttpSession session = req.getSession(false);
             if(session == null) { // セッションオブジェクトなし
                 req.setAttribute("message",
@@ -74,7 +74,7 @@ public class CartServlet extends HttpServlet {
             CartBean cart = (CartBean) session.getAttribute("cart");
 
             if(cart == null) { // カートがない
-                req.setAttribute("message", "正しく操作してください。");
+                req.setAttribute("message", "カートが存在していません。");
                 gotoPage(req, resp, "/errInternal.jsp");
                 return;
             }
