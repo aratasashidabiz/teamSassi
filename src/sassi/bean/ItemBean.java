@@ -1,6 +1,5 @@
 package sassi.bean;
 
-import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.util.Map;
 
@@ -10,16 +9,23 @@ public class ItemBean {
     private Integer price;
     private String players;
     private String directors;
+    private String description;
     private Timestamp updated;
     private Timestamp created;
     private Map<String, String> validation;
 
-    public ItemBean(Integer id) {
-        this.id = id;
+    public ItemBean() {
     }
 
-    public ItemBean(HttpServletRequest req){
-        //TODO: リクエストから、データ挿入 by Doi
+    public ItemBean(Integer id, String title, Integer price, String players, String directors, String description, Timestamp updated, Timestamp created){
+        this.id = id;
+        this.title = title;
+        this.price = price;
+        this.players = players;
+        this.directors = directors;
+        this.description = description;
+        this.updated = updated;
+        this.created = created;
     }
 
     public Integer getId() {
@@ -41,6 +47,8 @@ public class ItemBean {
     public String getDirectors() {
         return directors;
     }
+
+    public String getDescription() { return description; }
 
     public Timestamp getUpdated() {
         return updated;
@@ -69,6 +77,8 @@ public class ItemBean {
     public void setDirectors(String directors) {
         this.directors = directors;
     }
+
+    public void setDescription(String description) { this.description = description; }
 
     public void setUpdated(Timestamp updated) {
         this.updated = updated;
