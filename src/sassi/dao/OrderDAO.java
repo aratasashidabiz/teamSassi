@@ -6,7 +6,6 @@ import sassi.bean.ItemBean;
 
 import java.sql.*;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 
 public class OrderDAO {
@@ -102,11 +101,12 @@ public class OrderDAO {
 
             for (ItemBean item : values) {
                 statement = connection.prepareStatement(sql);
+                item.calcTotalPrice();
                 // プレースホルダーの設定
                 statement.setInt(1, ordered_id);
                 statement.setInt(2, item.getId());
-                statement.setInt(3, cart.getTotalPrice()); // TODO ItemBeanが出来次第修正予定
-                statement.setInt(4, cart.getCartNum()); // TODO ItemBeanが出来次第修正予定
+                statement.setInt(3, item.getTotalPrice());
+                statement.setInt(4, item.getQuantity());
 
                 // SQLの実行
                 statement.executeUpdate();

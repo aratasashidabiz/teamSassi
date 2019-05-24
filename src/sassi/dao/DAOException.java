@@ -1,6 +1,6 @@
 package sassi.dao;
 
-class DAOException extends Exception {
+public class DAOException extends Exception {
 
     DAOException(String message) {
         super(message);

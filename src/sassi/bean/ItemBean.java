@@ -1,7 +1,6 @@
 package sassi.bean;
 
 
-import javax.servlet.http.HttpServletRequest;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -18,6 +17,7 @@ public class ItemBean {
     private Timestamp created;
     private Map<String, String> validation;
     private Integer quantity;
+    private Integer totalPrice;
 
     public Integer getQuantity() {
         return quantity;
@@ -25,6 +25,14 @@ public class ItemBean {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Integer getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void calcTotalPrice() {
+        this.totalPrice = quantity * price;
     }
 
     public ItemBean() {
@@ -40,6 +48,17 @@ public class ItemBean {
         this.updated = rs.getTimestamp("updated_date");
         this.created = rs.getTimestamp("created_date");
 
+    }
+
+    public ItemBean(int id, String title, int price, String players, String directors, String description, Timestamp updated, Timestamp created) {
+        this.id = id;
+        this.title = title;
+        this.price = price;
+        this.players = players;
+        this.directors = directors;
+        this.description = description;
+        this.updated = updated;
+        this.created = created;
     }
 
     public Integer getId() {
