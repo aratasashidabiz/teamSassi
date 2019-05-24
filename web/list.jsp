@@ -31,23 +31,21 @@
 
 <%--商品一覧部分--%>
 <div>
-    <form action="/CartServlet?mode=1&id=商品ID" method="get">
+    <form action="/CartServlet?mode=1&id=${item.id}" method="get">
         <table border="1" cellspacing="10">
-            <%--    <c:forEach items="${items.itemList}" var="item">--%>
-            <% for (int i = 1; i < 4; i++) { %>
+                <c:forEach items="${items}" var="item">
             <tr>
                 <td>
                     <img src="./img/dummy.png" alt="dummy"><br>
-                    <input type="button" onclick="/CartServlet?mode=1&id=商品ID" value="カートに入れる">
+                    <input type="button" onclick="/CartServlet?mode=1&id=${item.id}" value="カートに入れる">
                 </td>
                 <td>
-                    <a href="/ItemsServlet?mode=1&id=商品ID">{items.title}</a><br>
+                    <a href="/ItemsServlet?mode=1&id=${item.id}">${item.title}</a><br>
                     価格:<br>
-                    {items.price}
+                    ${item.price}
                 </td>
             </tr>
-            <% } %>
-            <%--    </c:forEach>--%>
+                </c:forEach>
         </table>
     </form>
 </div>

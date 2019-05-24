@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/mbshop/OrdersServlet")
+@WebServlet("/OrdersServlet")
 public class OrdersServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -42,7 +42,7 @@ public class OrdersServlet extends HttpServlet {
             }
             request.setAttribute("order", order);
             session.setAttribute("cart", cart);
-            gotoPage(request, response, "/saved.jsp");
+            gotoPage(request, response, "/ordered.jsp");
         }
     }
 
