@@ -102,7 +102,7 @@ public class ItemDAO {
         ResultSet rs = null;
 
         try {
-            String sql = "select * from product where id = ?";
+            String sql = "select * from product where product_id = ?";
             st = connection.prepareStatement(sql);
             st.setInt(1, id);
             rs = st.executeQuery();
