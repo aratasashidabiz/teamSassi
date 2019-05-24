@@ -36,12 +36,13 @@
         <tr>
             <td align="center" width="150">${item.getValue().title}</td>
             <td align="center" width="150">${item.getValue().price}</td>
-            <form action="/CartServlet?mode=2" method="post">
+            <form action="CartServlet" method="post">
                 <td align="center" width="150">
+                    <input type="hidden" name="mode" value="2">
                     <input type="hidden" name="id" value="${item.getValue().id}">
                     <input type="number" name="quantity" value="${item.getValue().quantity}">
                     <span>個</span>
-                    <input type="button" name="update" value="更新">
+                    <input type="submit" name="update" value="更新">
                 </td>
             </form>
             <td align="center" width="150">${item.getValue().totalPrice}</td>

@@ -20,6 +20,8 @@ public class ItemsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // 商品検索
+        request.setCharacterEncoding("UTF-8");
+
         String mode = request.getParameter("mode");
 
         try {
