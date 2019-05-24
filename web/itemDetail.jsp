@@ -16,10 +16,9 @@
 
 <h1>{エム・ビーショップ}</h1>
 
-
 <table>
     <tr>
-        <h2>{テッド}</h2>
+        <h2>${item.title}</h2>
     </tr>
     <tr>
         <td>
@@ -29,26 +28,26 @@
             <ul style="list-style: none;">
                 <li>
                     タイトル
-                    <p>{テッド}</p>
+                    <p>${item.title}</p>
                 </li>
                 <li>
                     価格
-                    <p>{1429}</p>
+                    <p>${item.price}</p>
                 </li>
                 <li>
                     出演
-                    <p>{マーク・ウォールバーグ}</p>
+                    <p>${item.players}</p>
                 </li>
                 <li>
                     監督
-                    <p>{セス・マクファーレン}</p>
+                    <p>${item.directors}</p>
                 </li>
                 <li>
                     解説
-                    <p>{少年時代に奇跡が起こって以来、喋るテディベアと無二の親友として。。。}</p>
+                    <p>${item.description}</p>
                 </li>
                 <li>
-                    <form action="/CartServlet?mode=1&id=商品ID" method="post">
+                    <form action="/CartServlet?mode=1&id=${item.id}" method="post">
                         <input type="submit" value="カートに入れる">
                     </form>
                 </li>

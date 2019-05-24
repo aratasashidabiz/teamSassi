@@ -2,6 +2,7 @@ package sassi.servlet;
 
 import sassi.bean.ItemBean;
 import sassi.dao.DAOException;
+import sassi.dao.ItemDAO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/mbshop/ItemsServlet")
+@WebServlet("/ItemsServlet")
 public class ItemsServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -36,6 +37,7 @@ public class ItemsServlet extends HttpServlet {
         List<String> ItemList = new ArrayList<>();
 
         try{
+            ItemDAO ItemDao = new ItemDAO();
             if(page.length() != 0 || page != null){
                 ItemList = ItemDao.getList(keyword,page);
             }
@@ -57,10 +59,18 @@ public class ItemsServlet extends HttpServlet {
     protected void showDetail(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
 
-        ItemBean item = new ItemBean();
-        String id = request.getParameter("id");
-        item = ItemDao.getList(id);
-        gotoPage(request,response,"/detail.jsp");
+        Integer id = Integer.parseInt(request.getParameter("id"));
+
+        try{
+            ItemDAO ItemDao = new ItemDAO();
+            ItemBean item = ItemDao.getItem(id);
+            request.setAttribute("item",item);
+            gotoPage(request,response,"/itemDetail.jsp");
+        }catch (DAOException e){
+            e.printStackTrace();
+            request.setAttribute("message", "内部エラーが発生しました。");
+            gotoPage(request, response, "/errInternal.jsp");
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
