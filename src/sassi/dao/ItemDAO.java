@@ -39,6 +39,33 @@ public class ItemDAO {
         }
     }
 
+    public List<ItemBean> getListBySerch(String targetStr) throws DAOException {
+        if (connection == null) {
+            getConnection();
+        }
+
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+            String sql = "select * from product where product_title like %?%";
+            st = connection.prepareStatement(sql);
+            st.setString(1, targetStr);
+            rs = st.executeQuery();
+            return itemAddLoop(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DAOException("レコードを取得できませんでした。");
+        } finally {
+            try {
+                close(st, rs);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new DAOException("リソースを解放できませんでした。");
+            }
+        }
+    }
+
     public List<ItemBean> getListByPage(int pageNum,int getCountNum) throws DAOException{
         if (connection == null) {
             getConnection();
@@ -55,8 +82,8 @@ public class ItemDAO {
             rs = st.executeQuery();
             return itemAddLoop(rs);
         } catch (SQLException e) {
-            e.printStackTrace();\
-            throw new DAOException("リソースを解放できませんでした。");
+            e.printStackTrace();
+            throw new DAOException("レコードを取得できませんでした。");
         } finally {
             try {
                 close(st, rs);
@@ -85,7 +112,7 @@ public class ItemDAO {
             return bean;
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new DAOException("リソースを解放できませんでした。");
+            throw new DAOException("レコードを取得できませんでした。");
         } finally {
             try {
                 close(st, rs);
