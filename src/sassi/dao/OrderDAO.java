@@ -6,7 +6,6 @@ import sassi.bean.ItemBean;
 
 import java.sql.*;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 
 public class OrderDAO {
@@ -102,11 +101,12 @@ public class OrderDAO {
 
             for (ItemBean item : values) {
                 statement = connection.prepareStatement(sql);
+                item.calcTotalPrice();
                 // プレースホルダーの設定
                 statement.setInt(1, ordered_id);
                 statement.setInt(2, item.getId());
-                statement.setInt(3, cart.getTotalPrice()); // TODO ItemBeanが出来次第修正予定
-                statement.setInt(4, cart.getCartNum()); // TODO ItemBeanが出来次第修正予定
+                statement.setInt(3, item.getTotalPrice());
+                statement.setInt(4, item.getQuantity());
 
                 // SQLの実行
                 statement.executeUpdate();
@@ -146,19 +146,19 @@ public class OrderDAO {
 }
 
 // test
-class TestOrderDAO {
-    public static void main(String[] args) throws DAOException {
-        OrderDAO dao = new OrderDAO();
-        Map itemMap = new HashMap<Integer, ItemBean>();
-        ItemBean item1 = new ItemBean(1, "インターステラー", 1200, "マシュー・マコノヒー", "クリストファーノーラン", "めっちゃいい", Timestamp.valueOf("2019-05-24 09:43:14"), Timestamp.valueOf("2019-05-24 09:43:14"));
-        ItemBean item2 = new ItemBean(2, "インターステラー2", 9999, "マシュー・マコノヒー2", "クリストファーノーラン2", "めっちゃいい2", Timestamp.valueOf("2019-05-24 09:43:14"), Timestamp.valueOf("2019-05-24 09:43:14"));
-        itemMap.put(1, item1);
-        itemMap.put(2, item2);
-        CartBean cart = new CartBean();
-        cart.setItems(itemMap);
-//        cart.setCartNum(1);
-//        cart.setTotalPrice(1000);
-        CustomerBean customer = new CustomerBean("first", "111-1111", "八王子市", "111-1111-1111");
-        dao.saveOrdered(customer, cart);
-    }
-}
+//class TestOrderDAO {
+//    public static void main(String[] args) throws DAOException {
+//        OrderDAO dao = new OrderDAO();
+//        Map itemMap = new HashMap<Integer, ItemBean>();
+//        ItemBean item1 = new ItemBean(1, "インターステラー", 1200, "マシュー・マコノヒー", "クリストファーノーラン", "めっちゃいい", Timestamp.valueOf("2019-05-24 09:43:14"), Timestamp.valueOf("2019-05-24 09:43:14"));
+//        ItemBean item2 = new ItemBean(2, "インターステラー2", 9999, "マシュー・マコノヒー2", "クリストファーノーラン2", "めっちゃいい2", Timestamp.valueOf("2019-05-24 09:43:14"), Timestamp.valueOf("2019-05-24 09:43:14"));
+//        itemMap.put(1, item1);
+//        itemMap.put(2, item2);
+//        CartBean cart = new CartBean();
+//        cart.setItems(itemMap);
+////        cart.setCartNum(1);
+////        cart.setTotalPrice(1000);
+//        CustomerBean customer = new CustomerBean("first", "111-1111", "八王子市", "111-1111-1111");
+//        dao.saveOrdered(customer, cart);
+//    }
+//}
