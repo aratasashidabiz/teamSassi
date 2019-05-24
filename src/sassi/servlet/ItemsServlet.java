@@ -47,7 +47,7 @@ public class ItemsServlet extends HttpServlet {
                 request.setAttribute("item",ItemDao.getListByKeyword(keyword));
             }
             else if(keyword.length() == 0 || keyword == null){
-                request.setAttribute("item",ItemDao.getListByKeyword(""));
+                request.setAttribute("item",ItemDao.getListAll());
             }
             gotoPage(request,response,"/list.jsp");
         }catch (DAOException e){
