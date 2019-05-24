@@ -17,6 +17,11 @@
 
 <div>
     <h2>カート</h2>
+    <c:if test="${empty sessionScope.cart.items}">
+        現在、カートは空です。
+    </c:if>
+
+    <c:if test="${not empty sessionScope.cart.items}">
     <table border="1">
         <tr>
             <th align="center">タイトル</th>
@@ -25,7 +30,9 @@
             <th align="center">計</th>
             <th align="center">削除</th>
         </tr>
-        <%--    <c:forEach items="${cart.cartList}" var="item">--%>
+
+
+        <c:forEach items="${sessionScope.cart.items}" var="item">
         <tr>
             <td align="center" width="150">{テッド}</td>
             <td align="center" width="150">{1429円}</td>
@@ -42,17 +49,20 @@
                     <input type="button" name="update" value="更新">
                 </td>
             </form>
-            <td align="center" width="150">{1429円}</td>
+            <td align="center" width="150">${item.totalList}</td>
             <td align="center" width="150">
-                <input type="button" onclick="/CartServlet?mode=3&id=商品ID" value="削除">
+                <input type="button" onclick="CartServlet?mode=3&id=${item.id}" value="削除">
             </td>
         </tr>
-        <%--    </c:forEach>--%>
+        </c:forEach>
         <tr>
             <td align="center" colspan="3">合計</td>
-            <td align="center" colspan="1">{1,429円}</td>
+            <td align="center" colspan="1">${sessionScope.cart.totalList}</td>
             <td align="center" colspan="1"></td>
         </tr>
+
+        </c:if>
+
     </table>
 </div>
 
@@ -63,6 +73,7 @@
 </div>
 
 <br>
+<c:if test="${not empty sessionScope.cart.items}">
 
 <div style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333;">
     <h2>お届け先</h2>
@@ -88,6 +99,7 @@
         <input type="submit" value="注文する">
     </form>
 </div>
+</c:if>
 
 </body>
 </html>
