@@ -34,30 +34,30 @@
 
         <c:forEach items="${sessionScope.cart.items}" var="item">
         <tr>
-            <td align="center" width="150">{テッド}</td>
-            <td align="center" width="150">{1429円}</td>
+            <td align="center" width="150">${item.getValue().title}</td>
+            <td align="center" width="150">${item.getValue().price}</td>
             <form action="/CartServlet?mode=2" method="post">
                 <td align="center" width="150">
-                    <input type="hidden" name="id" value="${item.id}">
-                    <select name="quantity" id="quantity">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>個
+                    <input type="hidden" name="id" value="${item.getValue().id}">
+                    <input type="number" name="quantity" value="${item.getValue().quantity}">
+                    <span>個</span>
                     <input type="button" name="update" value="更新">
                 </td>
             </form>
-            <td align="center" width="150">${item.totalList}</td>
+            <td align="center" width="150">${item.getValue().totalPrice}</td>
             <td align="center" width="150">
-                <input type="button" onclick="CartServlet?mode=3&id=${item.id}" value="削除">
+                <form action="CartServlet" method="post">
+                    <input type="hidden" name="mode" value="3">
+                    <input type="hidden" name="id" value="${item.getValue().id}">
+
+                    <input type="submit" value="削除">
+                </form>
             </td>
         </tr>
         </c:forEach>
         <tr>
             <td align="center" colspan="3">合計</td>
-            <td align="center" colspan="1">${sessionScope.cart.totalList}</td>
+            <td align="center" colspan="1">${sessionScope.cart.totalPrice}</td>
             <td align="center" colspan="1"></td>
         </tr>
 
@@ -69,7 +69,10 @@
 <br>
 
 <div>
-    <input type="button" onclick="/ItemsServlet" value="買い物を続ける">
+    <form action="ItemsServlet" method="post">
+        <input type="submit" value="買い物を続ける">
+    </form>
+<%--    <input type="button" onclick="ItemsServlet" value="買い物を続ける">--%>
 </div>
 
 <br>
