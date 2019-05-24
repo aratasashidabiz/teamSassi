@@ -1,6 +1,9 @@
 package sassi.bean;
 
+
 import javax.servlet.http.HttpServletRequest;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Map;
 
@@ -10,15 +13,33 @@ public class ItemBean {
     private Integer price;
     private String players;
     private String directors;
+    private String description;
     private Timestamp updated;
     private Timestamp created;
     private Map<String, String> validation;
+    private Integer quantity;
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
 
     public ItemBean() {
     }
 
-    public ItemBean(HttpServletRequest req){
-        //TODO: リクエストから、データ挿入 by Doi
+    public ItemBean(ResultSet rs) throws SQLException {
+        this.id = rs.getInt("product_id");
+        this.title = rs.getString("product_title");
+        this.price = rs.getInt("product_price");
+        this.players = rs.getString("cast_name_list");
+        this.directors = rs.getString("director_name");
+        this.description = rs.getString("description");
+        this.updated = rs.getTimestamp("updated_date");
+        this.created = rs.getTimestamp("created_date");
+
     }
 
     public Integer getId() {
@@ -40,6 +61,8 @@ public class ItemBean {
     public String getDirectors() {
         return directors;
     }
+
+    public String getDescription() { return description; }
 
     public Timestamp getUpdated() {
         return updated;
@@ -68,6 +91,8 @@ public class ItemBean {
     public void setDirectors(String directors) {
         this.directors = directors;
     }
+
+    public void setDescription(String description) { this.description = description; }
 
     public void setUpdated(Timestamp updated) {
         this.updated = updated;
