@@ -25,7 +25,6 @@ public class ItemDAO {
             String sql = "select * from product";
             st = connection.prepareStatement(sql);
             rs= st.executeQuery();
-            System.out.println(itemAddLoop(rs));
             return itemAddLoop(rs);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -53,6 +52,7 @@ public class ItemDAO {
             st = connection.prepareStatement(sql);
             st.setInt(1, id);
             rs = st.executeQuery();
+            rs.next();
             ItemBean bean = new ItemBean(rs);
             return bean;
         } catch (SQLException e) {
