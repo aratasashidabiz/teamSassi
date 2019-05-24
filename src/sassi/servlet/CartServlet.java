@@ -2,6 +2,8 @@ package sassi.servlet;
 
 import sassi.bean.CartBean;
 import sassi.bean.ItemBean;
+import sassi.dao.DAOException;
+import sassi.dao.ItemDAO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,12 +33,21 @@ public class CartServlet extends HttpServlet {
                 session.setAttribute("cart", cart);
             }
 
-            // 前の実装では、一旦itemと取り出してるけど。。。この処理必要かな？？
-            // TODO: DAO待機　仮配置 ItemBean item = ItemDAO.getItem(itemId); try catchもやる
-            // if(item == null) throw new IllegalAccessError("存在しないitemにアクセスしています")
-            // cart.addItem(item, quantity);
+            try {
+                ItemDAO itemDAO = new ItemDAO();
+                ItemBean item = itemDAO.getItem(itemId);
+                if(item == null){ // データベースにitemがない場合
+                    req.setAttribute("message", "商品が存在しません。");
+                    gotoPage(req, resp, "/errInternal.jsp");
+                    return;
+                }
+                cart.addItem(item, quantity);
+            } catch (DAOException e) {
+                e.printStackTrace();
+            }
 
             gotoPage(req, resp, "cart.jsp");
+
         }else if(mode.equals("2")){ // 数量の変更
 
             HttpSession session = req.getSession(false);
