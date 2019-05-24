@@ -20,7 +20,7 @@
     <div style="margin: 130px;">
       <div class="text-center"><h1 style="font-family: 'Lobster', cursive; font-size: 50px">MB SHOP</h1></div>
       <h1 class="text-center">最高の感動を探そう。</h1>
-      <div class="text-center"><a href="/ItemsServlet">ここから</a></div>
+      <div class="text-center"><a href="/ItemsServlet" style="color: #455261;">ここから</a></div>
     </div>
   </div>
   </body>
