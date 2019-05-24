@@ -1,5 +1,6 @@
 package sassi.bean;
 
+
 import javax.servlet.http.HttpServletRequest;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,6 +30,7 @@ public class ItemBean {
         this.description = rs.getString("description");
         this.updated = rs.getTimestamp("updated_date");
         this.created = rs.getTimestamp("created_date");
+
     }
 
     public Integer getId() {
