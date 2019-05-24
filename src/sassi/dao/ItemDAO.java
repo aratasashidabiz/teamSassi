@@ -13,7 +13,7 @@ public class ItemDAO {
         getConnection();
     }
 
-    public List<ItemBean> findAll() throws DAOException {
+    public List<ItemBean> getListAll() throws DAOException {
         if (connection == null) {
             getConnection();
         }
@@ -31,10 +31,47 @@ public class ItemDAO {
             throw new DAOException("レコードを取得できませんでした。");
         } finally {
             try {
-                tryClose(st, rs);
+                close(st, rs);
             } catch (SQLException e) {
                 e.printStackTrace();
                 throw new DAOException("リソースの解放ができませんでした");
+            }
+        }
+    }
+
+    public ItemBean getItem(int id) throws DAOException {
+        if (connection == null) {
+            getConnection();
+        }
+
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+            String sql = "select * from product where id = ?";
+            st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            rs = st.executeQuery();
+            ItemBean bean = new ItemBean(
+                    rs.getInt("product_id"),
+                    rs.getString("product_title"),
+                    rs.getInt("product_price"),
+                    rs.getString("cast_name_list"),
+                    rs.getString("director_name"),
+                    rs.getString("description"),
+                    rs.getTimestamp("updated_date"),
+                    rs.getTimestamp("created_date")
+            );
+            return bean;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DAOException("リソースを解放できませんでした。");
+        } finally {
+            try {
+                close(st, rs);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new DAOException("リソースを解放できませんでした");
             }
         }
     }
@@ -69,7 +106,7 @@ public class ItemDAO {
         }
     }
 
-    private void tryClose(PreparedStatement st, ResultSet rs) throws DAOException, SQLException {
+    private void close(PreparedStatement st, ResultSet rs) throws DAOException, SQLException {
         String msg = "リソースが解放できませんでした。";
 
         if (rs != null || st != null) {
@@ -80,7 +117,10 @@ public class ItemDAO {
                 if (st != null) {
                     st.close();
                 }
-                close();
+                if (connection != null) {
+                    connection.close();
+                    connection = null;
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
                 throw new DAOException(msg);
@@ -89,12 +129,4 @@ public class ItemDAO {
             throw new DAOException(msg);
         }
     }
-
-    private void close() throws SQLException {
-        if (connection != null) {
-            connection.close();
-            connection = null;
-        }
-    }
-
 }
