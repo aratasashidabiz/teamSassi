@@ -18,7 +18,7 @@
 
 <div>
     <%--検索ボタンとフォーム--%>
-    <form action="/mbshop/ItemsController" method="get">
+    <form action="/ItemsServlet" method="get">
         <input type="text" name="keyword">
         <input type="button" name="searchKeyword" value="検索">
     </form>
@@ -31,17 +31,17 @@
 
 <%--商品一覧部分--%>
 <div>
-    <form action="/mbshop/CartController?mode=1&id=商品ID" method="get">
+    <form action="/CartServlet?mode=1&id=商品ID" method="get">
         <table border="1" cellspacing="10">
             <%--    <c:forEach items="${items.itemList}" var="item">--%>
             <% for (int i = 1; i < 4; i++) { %>
             <tr>
                 <td>
                     <img src="./img/dummy.png" alt="dummy"><br>
-                    <input type="button" onclick="/mbshop/CartController?mode=1&id=商品ID" value="カートに入れる">
+                    <input type="button" onclick="/CartServlet?mode=1&id=商品ID" value="カートに入れる">
                 </td>
                 <td>
-                    <a href="/mbshop/ItemsController?mode=1&id=商品ID">{items.title}</a><br>
+                    <a href="/ItemsServlet?mode=1&id=商品ID">{items.title}</a><br>
                     価格:<br>
                     {items.price}
                 </td>
