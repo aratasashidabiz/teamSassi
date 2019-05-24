@@ -50,6 +50,17 @@ public class ItemBean {
 
     }
 
+    public ItemBean(int id, String title, int price, String players, String directors, String description, Timestamp updated, Timestamp created) {
+        this.id = id;
+        this.title = title;
+        this.price = price;
+        this.players = players;
+        this.directors = directors;
+        this.description = description;
+        this.updated = updated;
+        this.created = created;
+    }
+
     public Integer getId() {
         return id;
     }
