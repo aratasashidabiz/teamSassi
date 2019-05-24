@@ -1,5 +1,9 @@
 package sassi.bean;
 
+
+import javax.servlet.http.HttpServletRequest;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Map;
 
@@ -17,15 +21,16 @@ public class ItemBean {
     public ItemBean() {
     }
 
-    public ItemBean(Integer id, String title, Integer price, String players, String directors, String description, Timestamp updated, Timestamp created){
-        this.id = id;
-        this.title = title;
-        this.price = price;
-        this.players = players;
-        this.directors = directors;
-        this.description = description;
-        this.updated = updated;
-        this.created = created;
+    public ItemBean(ResultSet rs) throws SQLException {
+        this.id = rs.getInt("product_id");
+        this.title = rs.getString("product_title");
+        this.price = rs.getInt("product_price");
+        this.players = rs.getString("cast_name_list");
+        this.directors = rs.getString("director_name");
+        this.description = rs.getString("description");
+        this.updated = rs.getTimestamp("updated_date");
+        this.created = rs.getTimestamp("created_date");
+
     }
 
     public Integer getId() {

@@ -29,7 +29,7 @@
         <tr>
             <td align="center" width="150">{テッド}</td>
             <td align="center" width="150">{1429円}</td>
-            <form action="/mbshop/CartController?mode=2" method="post">
+            <form action="/CartServlet?mode=2" method="post">
                 <td align="center" width="150">
                     <input type="hidden" name="id" value="${item.id}">
                     <select name="quantity" id="quantity">
@@ -44,7 +44,7 @@
             </form>
             <td align="center" width="150">{1429円}</td>
             <td align="center" width="150">
-                <input type="button" onclick="/mbshop/CartController?mode=3&id=商品ID" value="削除">
+                <input type="button" onclick="/CartServlet?mode=3&id=商品ID" value="削除">
             </td>
         </tr>
         <%--    </c:forEach>--%>
@@ -59,14 +59,14 @@
 <br>
 
 <div>
-    <input type="button" onclick="/mbshop/ItemsController" value="買い物を続ける">
+    <input type="button" onclick="/ItemsServlet" value="買い物を続ける">
 </div>
 
 <br>
 
 <div style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333;">
     <h2>お届け先</h2>
-    <form action="/mbshop/OrdersController?mode=1" method="post">
+    <form action="/OrdersServlet?mode=1" method="post">
         <ul style="list-style: none;">
             <li>
                 名前 <br>

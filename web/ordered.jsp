@@ -63,7 +63,7 @@
     </li>
 </ul>
 
-<a href="/mbshop/ItemsController">トップページへ</a>
+<a href="/ItemsServlet">トップページへ</a>
 
 </body>
 </html>
