@@ -1,9 +1,16 @@
 package sassi.bean;
 
 
+import sassi.dao.DAOException;
+import sassi.dao.ItemDAO;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class ItemBean {
@@ -18,6 +25,16 @@ public class ItemBean {
     private Map<String, String> validation;
     private Integer quantity;
     private Integer totalPrice;
+
+    public ArrayList<Integer> getPages() {
+        return pages;
+    }
+
+    public void setPages(ArrayList<Integer> pages) {
+        this.pages = pages;
+    }
+
+    private ArrayList<Integer> pages;
 
     public Integer getQuantity() {
         return quantity;
@@ -50,7 +67,7 @@ public class ItemBean {
 
     }
 
-    public ItemBean(int id, String title, int price, String players, String directors, String description, Timestamp updated, Timestamp created) {
+    public ItemBean(int id, String title, int price, String players, String directors, String description, Timestamp updated, Timestamp created) throws DAOException {
         this.id = id;
         this.title = title;
         this.price = price;

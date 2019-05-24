@@ -30,17 +30,14 @@
             </div>
             <input type="button" class="btn btn-primary" name="searchKeyword" value="検索">
         </form>
-
-<%--        <form action="/ItemsServlet" method="get">--%>
-<%--            <input type="text" name="keyword">--%>
-<%--            <input type="button" name="searchKeyword" value="検索">--%>
-<%--        </form>--%>
-
-    </div>
-
-    <div>
-        <%--ページナビゲーション--%>
-        <cetner><< 1,2,3,4,5 >></cetner>
+<div>
+    <%--ページナビゲーション--%>
+<%--        <a href="/ItemsServlet?page=${p-1}"><< </a>--%>
+    <c:forEach items="${pages}" var="page">
+        <a href="/ItemsServlet?page=${page}"> ${page} </a>
+    </c:forEach>
+<%--        <a href="/ItemsServlet?page=${p+1}"> >></a>--%>
+</div>
     </div>
 
     <%--商品一覧部分--%>
@@ -51,7 +48,6 @@
                     <tr>
                         <td>
                             <img src="./img/product_${item.id}.png" alt="dummy" width="400" height="400"><br>
-<%--                            <input type="button" onclick="/CartServlet?mode=1&id=${item.id}" class="btn btn-info" value="カートに入れる">--%>
                             <form action="/CartServlet" method="post">
                                 <input type="hidden" name="id" value="${item.id}">
                                 <input type="hidden" name="mode" value="1">

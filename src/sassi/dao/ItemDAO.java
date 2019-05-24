@@ -39,6 +39,37 @@ public class ItemDAO {
         }
     }
 
+    public Integer getListCount() throws DAOException {
+        if (connection == null) {
+            getConnection();
+        }
+
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+            String sql = "select count(*) from product";
+            st = connection.prepareStatement(sql);
+            rs = st.executeQuery();
+            int count = 0;
+            if (rs.next()) {
+                count = rs.getInt("count(*)");
+                return count;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DAOException("レコードを取得できませんでした。");
+        } finally {
+            try {
+                close(st, rs);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new DAOException("リソースを解放できませんでした。");
+            }
+        }
+        return 0;
+    }
+
     public List<ItemBean> getListByKeyword(String targetStr) throws DAOException {
         if (connection == null) {
             getConnection();
