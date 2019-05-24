@@ -22,52 +22,58 @@ public class ItemsServlet extends HttpServlet {
         // 商品検索
         String mode = request.getParameter("mode");
 
-        if(mode.equals("1")){
-            showDetail(request,response);
-        }else{
-            searchKeyword(request,response);
+        try {
+            if (mode.equals("1")) {
+                showDetail(request, response);
+            } else {
+                searchKeyword(request, response);
+            }
+        } catch (NullPointerException e) {
+            searchKeyword(request, response);
         }
     }
 
     protected void searchKeyword(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException{
+            throws ServletException, IOException {
 
         String keyword = request.getParameter("keyword");
         String page = request.getParameter("page");
+        if(keyword == null) keyword = "";
+        if(page == null) page = "";
         ItemBean item = new ItemBean();
 
-        try{
+        try {
             ItemDAO ItemDao = new ItemDAO();
-            if(page.length() != 0 || page != null){
+            if (page.length() != 0) {
                 // TODO
                 System.out.println("ここ一旦放置!!!ページネーション+keyword!!!");
                 //request.setAttribute("item",ItemDao.getListByKeywordAndPage(keyword,page));
+            } else if (keyword.length() != 0) {
+                request.setAttribute("items", ItemDao.getListByKeyword(keyword));
+            } else if (keyword.length() == 0) {
+                request.setAttribute("items", ItemDao.getListAll());
             }
-            else if(keyword.length() != 0 || keyword != null){
-                request.setAttribute("items",ItemDao.getListByKeyword(keyword));
-            }
-            else if(keyword.length() == 0 || keyword == null){
-                request.setAttribute("items",ItemDao.getListAll());
-            }
-            gotoPage(request,response,"/list.jsp");
-        }catch (DAOException e){
+            gotoPage(request, response, "/list.jsp");
+        } catch (DAOException e) {
             e.printStackTrace();
             request.setAttribute("message", "内部エラーが発生しました。");
             gotoPage(request, response, "/errInternal.jsp");
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
     }
 
     protected void showDetail(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException{
+            throws ServletException, IOException {
 
         Integer id = Integer.parseInt(request.getParameter("id"));
 
-        try{
+        try {
             ItemDAO ItemDao = new ItemDAO();
             ItemBean item = ItemDao.getItem(id);
-            request.setAttribute("item",item);
-            gotoPage(request,response,"/itemDetail.jsp");
-        }catch (DAOException e){
+            request.setAttribute("item", item);
+            gotoPage(request, response, "/itemDetail.jsp");
+        } catch (DAOException e) {
             e.printStackTrace();
             request.setAttribute("message", "内部エラーが発生しました。");
             gotoPage(request, response, "/errInternal.jsp");
@@ -75,8 +81,8 @@ public class ItemsServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException{
-        doPost(request,response);
+            throws ServletException, IOException {
+        doPost(request, response);
     }
 
     private void gotoPage(HttpServletRequest request, HttpServletResponse response, String page)
